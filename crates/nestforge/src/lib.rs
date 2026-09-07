@@ -235,9 +235,13 @@ pub use nestforge_graphql::{
     graphql_router_with_config, resolve_graphql, GraphQlConfig, GraphQlSchema,
 };
 #[cfg(all(feature = "grpc", feature = "microservices"))]
-pub use nestforge_grpc::{dispatch_grpc_event, dispatch_grpc_message};
+pub use nestforge_grpc::{dispatch_grpc_event, dispatch_grpc_message, GrpcDispatchService};
 #[cfg(feature = "grpc")]
-pub use nestforge_grpc::{prost, tonic, GrpcContext, GrpcServerConfig, NestForgeGrpcFactory};
+pub use nestforge_grpc::{
+    prost, tonic, EmitRequest, EmitResponse, GrpcContext, GrpcMicroserviceClient,
+    GrpcServerConfig, InvokeRequest, InvokeResponse, NestForgeDispatchClient,
+    NestForgeDispatchServer, NestForgeGrpcFactory,
+};
 #[cfg(feature = "mongo")]
 pub use nestforge_mongo::{InMemoryMongoRepo, MongoConfig};
 #[cfg(feature = "openapi")]

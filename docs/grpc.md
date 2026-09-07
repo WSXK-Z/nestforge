@@ -115,3 +115,51 @@ cargo run -p hello-nestforge-grpc
 ```
 
 It listens on `127.0.0.1:50051` and exposes the generated `Greeter` service.
+
+## Generic Microservice Channel (Inbound + Outbound)
+
+Beyond the typed, hand-written tonic service path above, `nestforge-grpc` ships a
+**transport-agnostic generic channel** (`proto/nestforge.proto`) so any two NestForge nodes
+can exchange `pattern + JSON payload` messages without writing a proto service per RPC.
+
+### Inbound: `GrpcDispatchService`
+
+A ready-made tonic service that dispatches remote `Invoke`/`Emit` envelopes into the local
+`MicroserviceRegistry` (handlers keep using DI via `ctx.resolve<T>()`):
+
+```rust
+// 在 listen_with 里把入站通道挂到同一根 tonic Server 上
+NestForgeGrpcFactory::<AppModule>::create()?
+    .with_addr("127.0.0.1:50051")
+    .listen_with(|ctx, addr| async move {
+        let patterns = ctx.resolve::<GrpcPatterns>()?;   // 你的注册表 provider
+        let dispatch = nestforge::GrpcDispatchService::new(
+            ctx.container().clone(),
+            patterns.registry().clone(),
+        );
+        nestforge::tonic::transport::Server::builder()
+            .add_service(GreeterServer::new(GreeterGrpcService::new(ctx))) // typed RPC 可共存
+            .add_service(dispatch.into_server())                            // 通用通道
+            .serve(addr)
+            .await
+    })
+    .await?;
+```
+
+### Outbound: `GrpcMicroserviceClient`
+
+Implements `MicroserviceClient`, so `send`/`emit` go over the wire to a remote node:
+
+```rust
+use nestforge::MicroserviceClient;
+
+let client = nestforge::GrpcMicroserviceClient::connect_lazy("127.0.0.1:50051")?
+    .with_default_metadata(TransportMetadata::new().insert("env", "test"));
+
+let count: usize = client.send("users.count", ()).await?;   // 请求-响应
+client.emit("users.created", CreateUserEvent { user_id: 7 }).await?; // 即发即忘
+```
+
+- `connect(addr)` 立即握手；`connect_lazy(addr)` 首调用才建连（适合 provider 工厂）。
+- tonic `Channel` 自动重连；地址未带 scheme 时自动补 `http://`。
+- 入站 `MicroserviceContext.transport()` 为 `"grpc"`；默认元数据会透传到远端 handler 的 `ctx.metadata()`。

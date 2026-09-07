@@ -1,0 +1,8 @@
+# 本仓库依赖大量 crates.io 包（axum/tokio/serde 等），
+# 因此把默认依赖源固定为 crates.io，覆盖用户级配置里的 `default = "gitea"`。
+#
+# 发布到私有 Gitea 源的方式：
+#   cargo publish --registry gitea -p <crate>
+# 或使用 scripts/release_publish.ps1 -Registry gitea（保留 crates.io 默认行为）。
+[registry]
+default = "crates-io"

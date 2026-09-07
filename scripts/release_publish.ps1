@@ -2,7 +2,11 @@ param(
     [string]$TargetVersion = "",
     [switch]$SkipChecks,
     [switch]$DryRun,
-    [switch]$NoPublish
+    [switch]$NoPublish,
+    # 目标 registry 名称（如 gitea）。留空 = crates.io（默认）。
+    [string]$Registry = "",
+    # 发布到私有 registry 时跳过本地校验构建（cargo publish --no-verify）。
+    [switch]$NoVerify
 )
 
 Set-StrictMode -Version Latest
@@ -211,10 +215,18 @@ function Get-PublishRetryDelaySeconds {
 function Invoke-CargoPublish {
     param(
         [string]$CrateName,
-        [switch]$DryRunMode
+        [string]$TargetRegistry = "",
+        [switch]$DryRunMode,
+        [switch]$SkipVerify
     )
 
     $args = @("publish", "-p", $CrateName, "--allow-dirty")
+    if ($SkipVerify) {
+        $args += "--no-verify"
+    }
+    if ($TargetRegistry) {
+        $args += "--registry", $TargetRegistry
+    }
     if ($DryRunMode) {
         $args += "--dry-run"
     }
@@ -229,12 +241,14 @@ function Invoke-CargoPublish {
         }
 
         $all = ($output | Out-String)
-        if ($all -match "already exists on crates.io index") {
+        if ($all -match "already exists") {
             Write-Host "Skipping $CrateName (already published for this version)." -ForegroundColor Yellow
             return
         }
 
-        if ($all -match "429 Too Many Requests") {
+        # crates.io 限流重试逻辑仅适用于默认源；私有 registry 出错时直接抛出。
+        $isDefaultRegistry = [string]::IsNullOrWhiteSpace($TargetRegistry)
+        if ($isDefaultRegistry -and $all -match "429 Too Many Requests") {
             if ($attempt -eq 5) {
                 throw "Publish failed for $CrateName after repeated crates.io rate limiting."
             }
@@ -375,10 +389,50 @@ $publishOrder = @(
     "nestforge"
 )
 
-Write-Step "Publishing crates in dependency order"
+$targetRegistry = if ([string]::IsNullOrWhiteSpace($Registry)) { "" } else { $Registry.Trim() }
+$isDefaultRegistry = [string]::IsNullOrWhiteSpace($targetRegistry)
+$targetRegistryLabel = if ($isDefaultRegistry) { "crates.io" } else { "registry '$targetRegistry'" }
+
+# 发布到非默认 registry 前，先确认 cargo 已配置该源的 index。
+# （不用 `cargo config get`，它在部分 stable 工具链上仍属 unstable 命令。）
+if (-not $isDefaultRegistry -and $targetRegistry -notin @("crates-io", "crates.io")) {
+    Write-Step "Verifying registry '$targetRegistry' is configured"
+    $candidateConfigs = @()
+    if ($env:CARGO_HOME) {
+        $candidateConfigs += (Join-Path $env:CARGO_HOME "config.toml"), (Join-Path $env:CARGO_HOME "config")
+    }
+    $candidateConfigs += (Join-Path $HOME ".cargo\config.toml"), (Join-Path $HOME ".cargo\config")
+    $candidateConfigs += (Join-Path $repoRoot ".cargo\config.toml"), (Join-Path $repoRoot ".cargo\config")
+
+    $registryFound = $false
+    $pattern = "(?m)^\s*\[\s*registries\.$([regex]::Escape($targetRegistry))\s*\]"
+    foreach ($file in ($candidateConfigs | Select-Object -Unique)) {
+        if (Test-Path $file) {
+            if ((Get-Content -Raw -Path $file) -match $pattern) {
+                $registryFound = $true
+                break
+            }
+        }
+    }
+
+    if (-not $registryFound) {
+        throw @"
+Registry '$targetRegistry' is not configured for cargo.
+Add it to your cargo config (e.g. `$env:CARGO_HOME\config.toml):
+
+[registries.$targetRegistry]
+index = "sparse+https://<your-gitea-host>/api/packages/<owner>/cargo/"
+
+Then log in once with: cargo login --registry $targetRegistry
+"@
+    }
+}
+
+Write-Step "Publishing crates in dependency order to $targetRegistryLabel"
 foreach ($crate in $publishOrder) {
-    Invoke-CargoPublish -CrateName $crate -DryRunMode:$DryRun
-    if (-not $DryRun) {
+    Invoke-CargoPublish -CrateName $crate -TargetRegistry $targetRegistry -DryRunMode:$DryRun -SkipVerify:$NoVerify
+    # crates.io 的间隔用于等待索引传播；私有 registry 无需等待。
+    if (-not $DryRun -and $isDefaultRegistry) {
         Start-Sleep -Seconds 15
     }
 }

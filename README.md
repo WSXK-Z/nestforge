@@ -43,6 +43,7 @@ NestForge is a high-performance backend framework designed for developers who cr
 - DTO-driven OpenAPI schema generation for request and response bodies
 - Optional GraphQL support through a dedicated `nestforge-graphql` crate and factory helpers
 - Optional gRPC transport support through a dedicated `nestforge-grpc` crate
+- Cross-node gRPC microservice channel over a generic dispatch proto (`GrpcDispatchService` inbound + `GrpcMicroserviceClient` outbound)
 - Optional WebSocket gateway support through a dedicated `nestforge-websockets` crate
 - Optional scheduler support through a dedicated `nestforge-schedule` crate
 - Config module with env loading and schema validation

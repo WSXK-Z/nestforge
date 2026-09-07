@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+// NestForge 通用 gRPC 微服务通道。
+//
+// 用于在任意两个 NestForge 节点之间按 pattern 分发消息/事件，
+// 载荷以 JSON 字节承载，使强类型 gRPC 之上的通道仍保持传输无关注册表语义。
+// 入站：服务端挂 NestForgeDispatchServer（框架提供实现）。
+// 出站：客户端用 NestForgeDispatchClient 调 Invoke/Emit。
+package nestforgedispatch;
+
+service NestForgeDispatch {
+  // 请求-响应式消息。
+  rpc Invoke (InvokeRequest) returns (InvokeResponse);
+  // 即发即忘事件。
+  rpc Emit (EmitRequest) returns (EmitResponse);
+}
+
+// 出站 send() 请求。
+message InvokeRequest {
+  string pattern = 1;
+  bytes payload = 2; // JSON
+  map<string, string> metadata = 3;
+}
+
+message InvokeResponse {
+  bytes payload = 1; // JSON
+}
+
+// 出站 emit() 请求。
+message EmitRequest {
+  string pattern = 1;
+  bytes payload = 2; // JSON
+  map<string, string> metadata = 3;
+}
+
+message EmitResponse {}
