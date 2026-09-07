@@ -1215,7 +1215,7 @@ checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
 
 [[package]]
 name = "hello-nestforge"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "axum 0.8.8",
@@ -1226,7 +1226,7 @@ dependencies = [
 
 [[package]]
 name = "hello-nestforge-graphql"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "async-graphql",
@@ -1238,7 +1238,7 @@ dependencies = [
 
 [[package]]
 name = "hello-nestforge-grpc"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "axum 0.8.8",
@@ -1252,7 +1252,7 @@ dependencies = [
 
 [[package]]
 name = "hello-nestforge-microservices"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "axum 0.8.8",
@@ -1264,7 +1264,7 @@ dependencies = [
 
 [[package]]
 name = "hello-nestforge-websockets"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "axum 0.8.8",
@@ -1915,7 +1915,7 @@ checksum = "1d87ecb2933e8aeadb3e3a02b828fed80a7528047e68b4f424523a0981a3a084"
 
 [[package]]
 name = "nestforge"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "async-graphql",
@@ -1946,7 +1946,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-cache"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "axum 0.8.8",
  "http",
@@ -1958,7 +1958,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-cli"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "clap",
@@ -1975,7 +1975,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-config"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "dotenvy",
  "thiserror 2.0.18",
@@ -1983,7 +1983,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-core"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "axum 0.8.8",
@@ -1998,14 +1998,14 @@ dependencies = [
 
 [[package]]
 name = "nestforge-data"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "thiserror 2.0.18",
 ]
 
 [[package]]
 name = "nestforge-db"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "sqlx",
  "thiserror 2.0.18",
@@ -2014,7 +2014,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-graphql"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "async-graphql",
  "async-graphql-axum",
@@ -2024,7 +2024,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-grpc"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "nestforge-core",
@@ -2040,7 +2040,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-http"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "axum 0.8.8",
@@ -2051,7 +2051,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-kafka"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "chrono",
@@ -2066,7 +2066,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-macros"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2075,7 +2075,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-microservices"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "nestforge-core",
@@ -2085,14 +2085,14 @@ dependencies = [
 
 [[package]]
 name = "nestforge-mongo"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "nestforge-data",
 ]
 
 [[package]]
 name = "nestforge-openapi"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "axum 0.8.8",
  "nestforge-core",
@@ -2104,7 +2104,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-orm"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "nestforge-db",
  "thiserror 2.0.18",
@@ -2113,14 +2113,14 @@ dependencies = [
 
 [[package]]
 name = "nestforge-redis"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "nestforge-data",
 ]
 
 [[package]]
 name = "nestforge-schedule"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "nestforge-core",
@@ -2129,7 +2129,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-testing"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "async-graphql",
@@ -2146,7 +2146,7 @@ dependencies = [
 
 [[package]]
 name = "nestforge-websockets"
-version = "1.10.0"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "axum 0.8.8",
