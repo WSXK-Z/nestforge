@@ -25,9 +25,18 @@ function Invoke-Git {
         [string[]]$Args
     )
 
-    $output = & git @Args 2>&1
+    # PS 5.1 兼容：EAP=Stop 时 `2>&1` 会把原生命令的 stderr 提升为终止性
+    # NativeCommandError。临时切到 Continue 并逐行字符串化，规避后恢复。
+    $previousErrorActionPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = "Continue"
+        $output = @(& git @Args 2>&1 | ForEach-Object { "$_" })
+    }
+    finally {
+        $ErrorActionPreference = $previousErrorActionPreference
+    }
     if ($LASTEXITCODE -ne 0) {
-        throw "git $($Args -join ' ') failed.`n$($output | Out-String)"
+        throw "git $($Args -join ' ') failed.`n$($output -join "`n")"
     }
     $output
 }
@@ -233,7 +242,16 @@ function Invoke-CargoPublish {
 
     for ($attempt = 1; $attempt -le 5; $attempt++) {
         Write-Host ("cargo " + ($args -join " ")) -ForegroundColor DarkGray
-        $output = & cargo @args 2>&1
+        # PS 5.1 兼容：见 Invoke-Git 的注释，cargo 大量写 stderr（进度/索引更新），
+        # 必须避免它们被 EAP=Stop 提升成终止性错误。
+        $previousErrorActionPreference = $ErrorActionPreference
+        try {
+            $ErrorActionPreference = "Continue"
+            $output = @(& cargo @args 2>&1 | ForEach-Object { "$_" })
+        }
+        finally {
+            $ErrorActionPreference = $previousErrorActionPreference
+        }
         $output | ForEach-Object { Write-Host $_ }
 
         if ($LASTEXITCODE -eq 0) {

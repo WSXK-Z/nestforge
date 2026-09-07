@@ -14,11 +14,11 @@ categories = ["development-tools::testing"]
 anyhow = { workspace = true }
 async-graphql = { workspace = true }
 axum = { workspace = true }
-nestforge-core = { version = "1.10.0", path = "../nestforge-core" }
-nestforge-graphql = { version = "1.10.0", path = "../nestforge-graphql" }
-nestforge-grpc = { version = "1.10.0", path = "../nestforge-grpc" }
-nestforge-microservices = { version = "1.10.0", path = "../nestforge-microservices" }
-nestforge-websockets = { version = "1.10.0", path = "../nestforge-websockets" }
+nestforge-core = { version = "1.10.0", path = "../nestforge-core", registry = "gitea" }
+nestforge-graphql = { version = "1.10.0", path = "../nestforge-graphql", registry = "gitea" }
+nestforge-grpc = { version = "1.10.0", path = "../nestforge-grpc", registry = "gitea" }
+nestforge-microservices = { version = "1.10.0", path = "../nestforge-microservices", registry = "gitea" }
+nestforge-websockets = { version = "1.10.0", path = "../nestforge-websockets", registry = "gitea" }
 
 [dev-dependencies]
 serde_json = { workspace = true }

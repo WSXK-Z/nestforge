@@ -11,23 +11,23 @@ keywords = ["rust", "framework", "backend", "di", "axum"]
 categories = ["web-programming", "web-programming::http-server"]
 
 [dependencies]
-nestforge-core = { version = "1.10.0", path = "../nestforge-core" }
-nestforge-http = { version = "1.10.0", path = "../nestforge-http" }
-nestforge-macros = { version = "1.10.0", path = "../nestforge-macros" }
-nestforge-testing = { version = "1.10.0", path = "../nestforge-testing", optional = true }
-nestforge-db = { version = "1.10.0", path = "../nestforge-db", optional = true }
-nestforge-orm = { version = "1.10.0", path = "../nestforge-orm", optional = true }
-nestforge-config = { version = "1.10.0", path = "../nestforge-config", optional = true }
-nestforge-openapi = { version = "1.10.0", path = "../nestforge-openapi", optional = true }
-nestforge-graphql = { version = "1.10.0", path = "../nestforge-graphql", optional = true }
-nestforge-grpc = { version = "1.10.0", path = "../nestforge-grpc", optional = true }
-nestforge-schedule = { version = "1.10.0", path = "../nestforge-schedule", optional = true }
-nestforge-websockets = { version = "1.10.0", path = "../nestforge-websockets", optional = true }
-nestforge-data = { version = "1.10.0", path = "../nestforge-data", optional = true }
-nestforge-cache = { version = "1.10.0", path = "../nestforge-cache", optional = true }
-nestforge-microservices = { version = "1.10.0", path = "../nestforge-microservices", optional = true }
-nestforge-mongo = { version = "1.10.0", path = "../nestforge-mongo", optional = true }
-nestforge-redis = { version = "1.10.0", path = "../nestforge-redis", optional = true }
+nestforge-core = { version = "1.10.0", path = "../nestforge-core", registry = "gitea" }
+nestforge-http = { version = "1.10.0", path = "../nestforge-http", registry = "gitea" }
+nestforge-macros = { version = "1.10.0", path = "../nestforge-macros", registry = "gitea" }
+nestforge-testing = { version = "1.10.0", path = "../nestforge-testing", registry = "gitea", optional = true }
+nestforge-db = { version = "1.10.0", path = "../nestforge-db", registry = "gitea", optional = true }
+nestforge-orm = { version = "1.10.0", path = "../nestforge-orm", registry = "gitea", optional = true }
+nestforge-config = { version = "1.10.0", path = "../nestforge-config", registry = "gitea", optional = true }
+nestforge-openapi = { version = "1.10.0", path = "../nestforge-openapi", registry = "gitea", optional = true }
+nestforge-graphql = { version = "1.10.0", path = "../nestforge-graphql", registry = "gitea", optional = true }
+nestforge-grpc = { version = "1.10.0", path = "../nestforge-grpc", registry = "gitea", optional = true }
+nestforge-schedule = { version = "1.10.0", path = "../nestforge-schedule", registry = "gitea", optional = true }
+nestforge-websockets = { version = "1.10.0", path = "../nestforge-websockets", registry = "gitea", optional = true }
+nestforge-data = { version = "1.10.0", path = "../nestforge-data", registry = "gitea", optional = true }
+nestforge-cache = { version = "1.10.0", path = "../nestforge-cache", registry = "gitea", optional = true }
+nestforge-microservices = { version = "1.10.0", path = "../nestforge-microservices", registry = "gitea", optional = true }
+nestforge-mongo = { version = "1.10.0", path = "../nestforge-mongo", registry = "gitea", optional = true }
+nestforge-redis = { version = "1.10.0", path = "../nestforge-redis", registry = "gitea", optional = true }
 axum = { workspace = true }
 tokio = { workspace = true }
 anyhow = { workspace = true }
