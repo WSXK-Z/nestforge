@@ -366,7 +366,15 @@ Set-Content -Path $releaseNotesPath -Value $section
 
 if (-not $SkipChecks) {
     Write-Step "Running workspace checks"
-    & cargo check --workspace
+    # PS 5.1：EAP=Stop 时原生命令 stderr 会提升为终止性错误，这里临时切 Continue。
+    $previousErrorActionPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = "Continue"
+        & cargo check --workspace
+    }
+    finally {
+        $ErrorActionPreference = $previousErrorActionPreference
+    }
     if ($LASTEXITCODE -ne 0) { throw "cargo check failed." }
 }
 
@@ -462,7 +470,14 @@ if (-not $DryRun -and $env:GITHUB_TOKEN) {
     Invoke-Git push origin $newTag
 
     Write-Step "Creating GitHub release"
-    & gh release create $newTag --title $newTag --notes-file $releaseNotesPath
+    $previousErrorActionPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = "Continue"
+        & gh release create $newTag --title $newTag --notes-file $releaseNotesPath
+    }
+    finally {
+        $ErrorActionPreference = $previousErrorActionPreference
+    }
     if ($LASTEXITCODE -ne 0) {
         throw "gh release create failed."
     }
