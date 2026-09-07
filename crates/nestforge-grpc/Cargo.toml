@@ -14,8 +14,8 @@ categories = ["network-programming", "web-programming"]
 anyhow = { workspace = true }
 prost = { workspace = true }
 tonic = { workspace = true }
-nestforge-core = { version = "1.10.0", path = "../nestforge-core", registry = "gitea" }
-nestforge-microservices = { version = "1.10.0", path = "../nestforge-microservices", registry = "gitea" }
+nestforge-core = { version = "1.11.0", path = "../nestforge-core", registry = "gitea" }
+nestforge-microservices = { version = "1.11.0", path = "../nestforge-microservices", registry = "gitea" }
 serde = { workspace = true }
 serde_json = { workspace = true }
 
@@ -25,6 +25,7 @@ protoc-bin-vendored = { workspace = true }
 
 [dev-dependencies]
 tokio = { workspace = true }
+
 
 
 

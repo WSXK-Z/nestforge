@@ -12,10 +12,11 @@ categories = ["database"]
 
 [dependencies]
 thiserror = { workspace = true }
-nestforge-db = { version = "1.10.0", path = "../nestforge-db", registry = "gitea" }
+nestforge-db = { version = "1.11.0", path = "../nestforge-db", registry = "gitea" }
 
 [dev-dependencies]
 tokio = { workspace = true }
+
 
 
 

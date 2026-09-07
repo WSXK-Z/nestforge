@@ -14,11 +14,12 @@ categories = ["web-programming"]
 axum = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
-nestforge-core = { version = "1.10.0", path = "../nestforge-core", registry = "gitea" }
+nestforge-core = { version = "1.11.0", path = "../nestforge-core", registry = "gitea" }
 
 [dev-dependencies]
 tokio = { workspace = true }
 tower = { workspace = true }
+
 
 
 

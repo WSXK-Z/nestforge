@@ -1016,3 +1016,23 @@ Documentation wiki: https://github.com/vernonthedev/nestforge/wiki
 * chore: initialize `nestforge-core`, `nestforge-http`, and `nestforge` crates with their respective dependencies. ([893e52a](https://github.com/vernonthedev/nestforge/commit/893e52aa70390944ccf6959d92c412b0a8188f1e))
 * chore: initial commit ([510e4fd](https://github.com/vernonthedev/nestforge/commit/510e4fd91d3df0ccf281df883c2132babbce3622))
 
+
+
+## [1.11.0](https://github.com/vernonthedev/nestforge/compare/v1.10.0...v1.11.0) (2026-09-07)
+
+### Features
+
+* feat: add Kafka microservice transport (nestforge-kafka) ([76cad6f](https://github.com/vernonthedev/nestforge/commit/76cad6fe55c4bf2434cfdf6dfc5d1e3aaef53479))
+
+
+
+## [1.11.0](https://github.com/vernonthedev/nestforge/compare/v1.10.0...v1.11.0) (2026-09-07)
+
+### Features
+
+* feat: add Kafka microservice transport (nestforge-kafka) ([76cad6f](https://github.com/vernonthedev/nestforge/commit/76cad6fe55c4bf2434cfdf6dfc5d1e3aaef53479))
+
+### Fixes
+
+* fix(scripts): guard bare native calls under PS 5.1 EAP=Stop ([e050e94](https://github.com/vernonthedev/nestforge/commit/e050e94b2dbe90d9e21983623df554527299f891))
+

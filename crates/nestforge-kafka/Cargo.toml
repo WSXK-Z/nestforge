@@ -15,11 +15,12 @@ anyhow = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
 tokio = { workspace = true }
-nestforge-core = { version = "1.10.0", path = "../nestforge-core", registry = "gitea" }
-nestforge-microservices = { version = "1.10.0", path = "../nestforge-microservices", registry = "gitea" }
+nestforge-core = { version = "1.11.0", path = "../nestforge-core", registry = "gitea" }
+nestforge-microservices = { version = "1.11.0", path = "../nestforge-microservices", registry = "gitea" }
 rskafka = "0.6"
 futures = "0.3"
 chrono = { version = "0.4", default-features = false, features = ["clock"] }
 
 [dev-dependencies]
 tokio = { workspace = true }
+
