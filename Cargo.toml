@@ -22,6 +22,7 @@ members = [
   "crates/nestforge-data",
   "crates/nestforge-cache",
   "crates/nestforge-microservices",
+  "crates/nestforge-kafka",
   "crates/nestforge-mongo",
   "crates/nestforge-redis",
   ]

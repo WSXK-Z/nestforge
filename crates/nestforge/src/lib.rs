@@ -242,6 +242,11 @@ pub use nestforge_grpc::{
     GrpcServerConfig, InvokeRequest, InvokeResponse, NestForgeDispatchClient,
     NestForgeDispatchServer, NestForgeGrpcFactory,
 };
+#[cfg(feature = "kafka")]
+pub use nestforge_kafka::{
+    KafkaCompression, KafkaConfig, KafkaConsumerHandle, KafkaMicroserviceClient,
+    KafkaMicroserviceConsumer, KafkaStartOffset, KafkaSubscription, KafkaTransport, KAFKA_TRANSPORT,
+};
 #[cfg(feature = "mongo")]
 pub use nestforge_mongo::{InMemoryMongoRepo, MongoConfig};
 #[cfg(feature = "openapi")]
@@ -293,6 +298,8 @@ pub mod prelude {
     pub use crate::{GraphQlConfig, NestForgeFactoryGraphQlExt};
     #[cfg(feature = "microservices")]
     pub use crate::{MicroserviceClient, TransportMetadata};
+    #[cfg(feature = "kafka")]
+    pub use crate::KafkaMicroserviceClient;
 }
 
 #[cfg(feature = "openapi")]

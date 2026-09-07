@@ -44,6 +44,7 @@ NestForge is a high-performance backend framework designed for developers who cr
 - Optional GraphQL support through a dedicated `nestforge-graphql` crate and factory helpers
 - Optional gRPC transport support through a dedicated `nestforge-grpc` crate
 - Cross-node gRPC microservice channel over a generic dispatch proto (`GrpcDispatchService` inbound + `GrpcMicroserviceClient` outbound)
+- Kafka transport for microservice patterns via `nestforge-kafka` (outbound `KafkaMicroserviceClient` + inbound `KafkaMicroserviceConsumer`, rskafka-based)
 - Optional WebSocket gateway support through a dedicated `nestforge-websockets` crate
 - Optional scheduler support through a dedicated `nestforge-schedule` crate
 - Config module with env loading and schema validation

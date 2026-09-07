@@ -395,6 +395,7 @@ $publishOrder = @(
     "nestforge-http",
     "nestforge-schedule",
     "nestforge-microservices",
+    "nestforge-kafka",
     "nestforge-graphql",
     "nestforge-grpc",
     "nestforge-cache",

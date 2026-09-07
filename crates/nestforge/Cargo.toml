@@ -26,6 +26,7 @@ nestforge-websockets = { version = "1.10.0", path = "../nestforge-websockets", r
 nestforge-data = { version = "1.10.0", path = "../nestforge-data", registry = "gitea", optional = true }
 nestforge-cache = { version = "1.10.0", path = "../nestforge-cache", registry = "gitea", optional = true }
 nestforge-microservices = { version = "1.10.0", path = "../nestforge-microservices", registry = "gitea", optional = true }
+nestforge-kafka = { version = "1.10.0", path = "../nestforge-kafka", registry = "gitea", optional = true }
 nestforge-mongo = { version = "1.10.0", path = "../nestforge-mongo", registry = "gitea", optional = true }
 nestforge-redis = { version = "1.10.0", path = "../nestforge-redis", registry = "gitea", optional = true }
 axum = { workspace = true }
@@ -47,6 +48,7 @@ websockets = ["dep:nestforge-websockets"]
 data = ["dep:nestforge-data"]
 cache = ["dep:nestforge-cache", "data"]
 microservices = ["dep:nestforge-microservices"]
+kafka = ["dep:nestforge-kafka", "microservices"]
 mongo = ["dep:nestforge-mongo", "data"]
 redis = ["dep:nestforge-redis", "data"]
 
